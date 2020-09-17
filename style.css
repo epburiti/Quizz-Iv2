@@ -379,6 +379,15 @@ th {
     height: 70vh;
   }
 }
+@media (max-width: 500px) {
+  .options div {
+    height: 80px;
+    width: auto;
+  }
+  .button-back {
+    width: 45px;
+  }
+}
 
 /* loader */
 .backgroundCustom {

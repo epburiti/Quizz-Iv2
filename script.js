@@ -94,7 +94,8 @@ function handleTime() {
     global.time--;
     $time.innerText = global.time;
     if (global.time === 0) {
-      handleQuests();
+      // handleQuests();
+      handleScore();
     }
   }, 1000);
 }

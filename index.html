@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quizz</title>
+
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="Navquizz">Quizz</div>
+        <div class="">
+          <audio controls src="assets/song.mp3" id="bgSong"></audio>
+        </div>
+      </nav>
+    </header>
+
+    <div id="menu" class="menu">
+      <div>
+        <div class="init">
+          <p>?</p>
+          <h1>Quizz Game</h1>
+          <input
+            type="button"
+            value="Iniciar"
+            class="button iniciar"
+            onclick="handleDisabledUser()"
+          />
+          <input
+            type="button"
+            value="Rank"
+            class="button glow-on-hover"
+            onclick="handleRank()"
+          />
+        </div>
+
+        <div id="userData" class="hidde">
+          <label for="userName">Nick Name</label>
+          <div>
+            <input type="text" name="userName" id="userName" />
+            <button class="button-custom" onclick="handleLocalStorage()">
+              Salvar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quizz hidde">
+      <div class="text" id="text"></div>
+
+      <div class="options" id="options"></div>
+    </div>
+
+    <div class="score-ref hidde">
+      <div class="score">
+        <h1>SCORE</h1>
+        <p id="pontos">00</p>
+        <input
+          type="button"
+          value="Restart"
+          class="button glow-on-hover"
+          onclick="handleRestart()"
+        />
+        <input
+          type="button"
+          value="Rank"
+          class="button"
+          onclick="handleRank(0)"
+        />
+
+        <div class="sub-score">
+          <p>Total Time: <span id="total-Time"></span></p>
+          <p>Correct answers: <span id="total-Correct"></span></p>
+          <p>Wrong answers: <span id="total-Wrong"></span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="gif">
+      <img src="" alt="gif sad" id="gif-img" class="hidde" />
+    </div>
+
+    <div class="rank hidde" id="rank">
+      <div class="rank-ref">
+        <h4>Rank</h4>
+
+        <table class="pure-table pure-table-bordered">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>NICK</th>
+              <th>SCORE</th>
+              <th>TIME</th>
+            </tr>
+          </thead>
+          <tbody id="myRank"></tbody>
+        </table>
+      </div>
+
+      <img
+        src="assets/back-button.png"
+        alt="Backbotão de voltar"
+        class="button-back"
+        onclick="handleBack()"
+      />
+    </div>
+    <p id="time" class="time"></p>
+  </body>
+</html>

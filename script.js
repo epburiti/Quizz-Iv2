@@ -11,12 +11,13 @@ let $scoreRef,
   $totalCorrect,
   $totalWrong,
   $myRank,
-  $rank;
+  $rank,
+  $loader;
 
 const arrGif = [1, 2, 3, 4, 5, 6];
 
 let global = {
-  quests: 10,
+  quests: 50,
   data: [],
   correct: "",
   refTime: "",
@@ -25,7 +26,6 @@ let global = {
   totalTime: 0,
   refTotalTime: 0,
   totalCorrectAnswer: 0,
-  totalNumberOfQuests: 10,
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
   $totalWrong = document.getElementById("total-Wrong");
   $myRank = document.getElementById("myRank");
   $rank = document.getElementById("rank");
+  $loader = document.getElementById("backgroundCustom");
 });
 
 function handleDisabledUser() {
@@ -63,7 +64,8 @@ function handleLocalStorage() {
 }
 
 function handleRequestApi() {
-  const url = "https://opentdb.com/api.php?amount=10&category=23";
+  $loader.classList.toggle("hidde");
+  const url = `https://opentdb.com/api.php?amount=${global.quests}`;
 
   fetch(url, {
     method: "GET",
@@ -72,11 +74,14 @@ function handleRequestApi() {
     .then((res) => res.json())
     .then((json) => {
       const { results } = json;
+      global.quests = results.length;
       handleQuests(results);
+      $loader.classList.toggle("hidde");
     })
     .catch(function (err) {
       console.error("Failed retrieving information", err);
       alert("Error na requisição, contate o administrador");
+      $loader.classList.toggle("hidde");
     });
 }
 
@@ -163,10 +168,10 @@ function handleAnswer(resposta, element) {
     setTimeout(() => {
       $gif.classList.add("hidde");
 
-      if (global.quests == 0) {
-        handleScore();
-      }
-      handleQuests();
+      // if (global.quests == 0) {
+      handleScore();
+      // }
+      // handleQuests();
     }, 3000);
   }
 }
@@ -188,8 +193,7 @@ function handleScore() {
   document.querySelector("#pontos").innerText = `${global.score}`;
   $totalTime.innerText = global.totalTime > 150 ? 150 : global.totalTime;
   $totalCorrect.innerText = global.totalCorrectAnswer;
-  $totalWrong.innerText =
-    global.totalNumberOfQuests - global.totalCorrectAnswer;
+  $totalWrong.innerText = global.quests - global.totalCorrectAnswer;
 
   $scoreRef.classList.remove("hidde");
   $time.innerText = "";
@@ -203,7 +207,7 @@ function handleRestart() {
   $quizz.classList.toggle("hidde");
 
   global = {
-    quests: 10,
+    quests: 50,
     data: [],
     correct: "",
     refTime: "",
@@ -212,7 +216,6 @@ function handleRestart() {
     totalTime: 0,
     refTotalTime: 0,
     totalCorrectAnswer: 0,
-    totalNumberOfQuests: 10,
   };
 }
 
@@ -262,6 +265,7 @@ function handleRank(param = true) {
       <td>${element.nickName}</td>
       <td>${element.score}</td>
       <td>${element.totalTime}</td>
+      <td>${element.totalCorrectAnswer}</td>
       </tr>`;
     }
   });

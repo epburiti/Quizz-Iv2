@@ -13,7 +13,7 @@
       <nav>
         <div class="Navquizz">Quizz</div>
         <div class="">
-          <audio controls src="assets/song.mp3" id="bgSong"></audio>
+          <audio controls autoplay src="assets/song.mp3" id="bgSong"></audio>
         </div>
       </nav>
     </header>
@@ -75,7 +75,7 @@
         <div class="sub-score">
           <p>Total Time: <span id="total-Time"></span></p>
           <p>Correct answers: <span id="total-Correct"></span></p>
-          <p>Wrong answers: <span id="total-Wrong"></span></p>
+          <p class="hidde">Wrong answers: <span id="total-Wrong"></span></p>
         </div>
       </div>
     </div>
@@ -95,6 +95,7 @@
               <th>NICK</th>
               <th>SCORE</th>
               <th>TIME</th>
+              <th>CORRECT ANSWERS</th>
             </tr>
           </thead>
           <tbody id="myRank"></tbody>
@@ -109,5 +110,12 @@
       />
     </div>
     <p id="time" class="time"></p>
+
+    <div class="backgroundCustom hidde" id="backgroundCustom">
+      <div class="center">
+        <div class="textLoader">CARREGANDO...</div>
+        <div class="ring"></div>
+      </div>
+    </div>
   </body>
 </html>

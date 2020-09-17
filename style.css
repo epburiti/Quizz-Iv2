@@ -26,6 +26,10 @@ body {
   background: var(--dracula);
   color: var(--white);
 }
+th,
+td {
+  text-align: center !important;
+}
 :root {
   --main: #8b0d32;
   --mainBackground: rgba(139, 13, 50, 0.01);
@@ -373,5 +377,45 @@ th {
   .rank-ref {
     width: 80vw;
     height: 70vh;
+  }
+}
+
+/* loader */
+.backgroundCustom {
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(85, 81, 84, 0.466);
+}
+
+.center,
+.backgroundCustom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.textLoader {
+  position: absolute;
+  color: var(--white);
+}
+.ring {
+  position: relative;
+  background-color: transparent;
+  box-shadow: 0 3px 0 var(--white);
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  position: relative;
+  border-radius: 50%;
+  animation: animate 3s linear infinite;
+}
+
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

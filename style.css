@@ -373,6 +373,7 @@ th {
 /* fim table */
 /* fim rank */
 
+/* Responsividade */
 @media (max-width: 800px), (max-height: 400px) {
   header {
     height: 70px;
@@ -409,6 +410,7 @@ th {
     width: 45px;
   }
 }
+/* Responsividade */
 
 /* loader */
 .backgroundCustom {

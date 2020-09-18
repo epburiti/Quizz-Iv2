@@ -130,9 +130,6 @@ function handleQuests(params = 0) {
     html += `<div onclick="handleAnswer(this.innerText, this)" >${element}</div>`;
   });
   $options.innerHTML = html;
-
-  console.log("chamou", global.quests);
-  console.log("data", global.data[global.quests - 1]);
   global.quests--;
 }
 
@@ -183,7 +180,7 @@ function handleAnswer(resposta, element) {
 
 function shuffle(o) {
   for (
-    var j, x, i = o.length;
+    let j, x, i = o.length;
     i;
     j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x
   );
@@ -278,7 +275,7 @@ function handleRank(param = true) {
 }
 
 function runAudio(param) {
-  var audio = new Audio(param);
+  let audio = new Audio(param);
   audio.addEventListener("canplaythrough", function () {
     audio.play();
   });

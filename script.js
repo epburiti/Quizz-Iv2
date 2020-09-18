@@ -45,6 +45,10 @@ document.addEventListener("DOMContentLoaded", () => {
   $myRank = document.getElementById("myRank");
   $rank = document.getElementById("rank");
   $loader = document.getElementById("backgroundCustom");
+
+  const slideDown = (elem) => (elem.style.height = `${elem.scrollHeight}px`);
+
+  slideDown(document.getElementById("wrapper"));
 });
 
 function handleDisabledUser() {

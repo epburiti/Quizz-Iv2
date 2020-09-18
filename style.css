@@ -71,6 +71,8 @@ header nav {
 
 /* menu */
 .menu {
+  animation: fade 0.2s;
+
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -137,6 +139,9 @@ button {
   width: 200px;
   height: 38px;
 }
+#userData * {
+  animation: 500ms move;
+}
 input[type="text"] {
   border: 1px solid var(--border);
   color: var(--white);
@@ -162,6 +167,11 @@ input[type="text"] {
   height: 20px;
   width: 50px;
 }
+
+.init * {
+  animation: move 500ms;
+}
+
 /* Fim menu */
 
 /* quizz */
@@ -222,9 +232,17 @@ input[type="text"] {
   font-size: 20px;
   font-weight: bold;
 }
+
+.text,
+.options {
+  animation: 500ms fade;
+}
 /* fim quizz */
 
 /* score */
+.score * {
+  animation: 500ms move;
+}
 .button-back {
   position: absolute;
   bottom: 0;
@@ -255,6 +273,9 @@ input[type="text"] {
   width: 50%;
   border-radius: 10%;
   border: 1px solid var(--border);
+}
+.rank-ref * {
+  animation: move 500ms;
 }
 .score #pontos {
   margin: 25px 0;
@@ -428,3 +449,26 @@ th {
     transform: rotate(360deg);
   }
 }
+
+/* Global Animations */
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes move {
+  from {
+    opacity: 0;
+    transform: translateX(-35%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+/* Fim Global Animations */

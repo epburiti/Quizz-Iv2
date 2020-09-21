@@ -16,7 +16,7 @@ let $scoreRef,
 
 const arrGif = [1, 2, 3, 4, 5, 6];
 
-let global = {
+const initialState = {
   quests: 50,
   data: [],
   correct: "",
@@ -27,6 +27,8 @@ let global = {
   refTotalTime: 0,
   totalCorrectAnswer: 0,
 };
+
+let global = initialState;
 
 document.addEventListener("DOMContentLoaded", () => {
   $scoreRef = document.querySelector(".score-ref");
@@ -45,10 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
   $myRank = document.getElementById("myRank");
   $rank = document.getElementById("rank");
   $loader = document.getElementById("backgroundCustom");
-
-  const slideDown = (elem) => (elem.style.height = `${elem.scrollHeight}px`);
-
-  slideDown(document.getElementById("wrapper"));
 });
 
 function handleDisabledUser() {
@@ -68,6 +66,8 @@ function handleLocalStorage() {
 }
 
 function handleRequestApi() {
+  $options.innerHTML = "";
+  $text.innerHTML = "";
   $loader.classList.toggle("hidde");
   const url = `https://opentdb.com/api.php?amount=${global.quests}`;
 
@@ -115,7 +115,6 @@ function handleQuests(params = 0) {
 
   if (global.quests == 0) {
     handleScore();
-
     return;
   }
 
@@ -169,11 +168,7 @@ function handleAnswer(resposta, element) {
     $gif.src = `assets/sad/gif${shuffle(arrGif)[1]}.gif`;
     setTimeout(() => {
       $gif.classList.add("hidde");
-
-      // if (global.quests == 0) {
       handleScore();
-      // }
-      // handleQuests();
     }, 3000);
   }
 }
@@ -191,7 +186,12 @@ function handleScore() {
   clearInterval(global.refTime);
   handleTotalTime();
 
-  addToRank();
+  try {
+    addToRank();
+  } catch (error) {
+    console.log("Error:", error);
+  }
+
   document.querySelector("#pontos").innerText = `${global.score}`;
   $totalTime.innerText = global.totalTime > 150 ? 150 : global.totalTime;
   $totalCorrect.innerText = global.totalCorrectAnswer;
@@ -208,17 +208,7 @@ function handleRestart() {
   $scoreRef.classList.toggle("hidde");
   $quizz.classList.toggle("hidde");
 
-  global = {
-    quests: 50,
-    data: [],
-    correct: "",
-    refTime: "",
-    time: 15,
-    score: 0,
-    totalTime: 0,
-    refTotalTime: 0,
-    totalCorrectAnswer: 0,
-  };
+  global = initialState;
 }
 
 function handleTotalTime(param = false) {
@@ -257,11 +247,11 @@ function handleRank(param = true) {
 
   const rank = JSON.parse(window.localStorage.getItem("rank"));
   let html = "";
-  let rankRef = rank.sort(function (a, b) {
-    return a.score < b.score ? 1 : b.score < a.score ? -1 : 0;
-  });
+  let rankRef = rank.sort((a, b) => b.score - a.score);
+
+  const numberOfRecords = 5;
   rankRef.forEach((element, index) => {
-    if (index < 5) {
+    if (index < numberOfRecords) {
       html += `<tr>
       <td>${index + 1}</td>
       <td>${element.nickName}</td>

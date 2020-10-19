@@ -28,7 +28,7 @@ const initialState = {
   totalCorrectAnswer: 0,
 };
 
-let global = initialState;
+let global = { ...initialState };
 
 document.addEventListener("DOMContentLoaded", () => {
   $scoreRef = document.querySelector(".score-ref");
@@ -63,6 +63,7 @@ function handleLocalStorage() {
   $quizz.classList.toggle("hidde");
 
   handleRequestApi();
+  global = { ...initialState };
 }
 
 function handleRequestApi() {
@@ -105,11 +106,6 @@ function handleTime() {
 }
 
 function handleQuests(params = 0) {
-  // trata parametros
-  if (params) {
-    global.data = params;
-    handleTotalTime(true);
-  }
   clearInterval(global.refTime);
   handleTime();
 
@@ -118,6 +114,11 @@ function handleQuests(params = 0) {
     return;
   }
 
+  // trata parametros
+  if (params) {
+    global.data = params;
+    handleTotalTime(true);
+  }
   const { question, incorrect_answers, correct_answer } = global.data[
     global.quests - 1
   ];
@@ -143,6 +144,8 @@ function handleAnswer(resposta, element) {
   });
 
   if (resposta == global.correct) {
+    handleTotalTime();
+
     runAudio("./assets/Audio/correct/audio1.m4a");
     element.style.background = "rgb(74, 207, 74)";
 
@@ -161,6 +164,8 @@ function handleAnswer(resposta, element) {
       }
     }, 3000);
   } else {
+    handleTotalTime();
+
     runAudio("./assets/Audio/wrong/audio1.m4a");
     element.style.background = "rgb(236, 45, 45)";
 
@@ -208,7 +213,7 @@ function handleRestart() {
   $scoreRef.classList.toggle("hidde");
   $quizz.classList.toggle("hidde");
 
-  global = initialState;
+  global = { ...initialState };
 }
 
 function handleTotalTime(param = false) {
